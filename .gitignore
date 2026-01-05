@@ -32,11 +32,7 @@ Thumbs.db
 # Project specific
 Basemodel/
 Basemodel/**
-models/*.pkl
-models/*.pkl.bak
-plots/*.png
-plots/*.jpg
-plots/*.pdf
+
 
 # Data (if too large)
 # data/*.csv
