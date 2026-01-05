@@ -1,3 +1,5 @@
+# .gitignore
+
 # Python
 __pycache__/
 *.py[cod]
@@ -33,7 +35,5 @@ Thumbs.db
 Basemodel/
 Basemodel/**
 
-
 # Data (if too large)
 # data/*.csv
-
