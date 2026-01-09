@@ -6,17 +6,18 @@
 
 ## 🎯 Project Overview
 
-The objective of this project was to develop a **regression model to predict the energy of Spotify tracks** based on audio features.  
-Energy ranges from **0.0 to 1.0** and describes how fast, loud, and intense a song feels.
+The objective of this project was to develop a regression model to predict the energy of Spotify tracks based on audio features.  
+Energy ranges from 0.0 to 1.0 and describes how fast, loud, and intense a song feels.
 
-A provided **baseline Linear Regression model** achieved an **R² of ~0.30**.  
-Our goal was to **significantly outperform this baseline** using a **clean, reproducible, and methodologically sound machine-learning workflow**, aligned with the course content.
+A provided baseline Linear Regression model achieved an R² of ~0.30.  
+Our goal was to significantly outperform this baseline using a clean, reproducible, and methodologically sound machine-learning workflow, aligned with the course content.
 
 ### Final Result
 
 - **Model:** Random Forest Regressor  
+- **Parameters:**  max_depth - None, max_features - sqrt, min_samples_leaf - 1, min_samples_split - 2, n_estimators - 600
 - **Performance:** **R² = 0.78**  
-- **Improvement over baseline:** **~2.5× higher explanatory power**
+- **Improvement over baseline:** **~2.5× higher**
 
 ---
 
@@ -91,22 +92,37 @@ Tree-based ensemble models clearly outperform linear approaches, confirming **no
 ### Data Preparation
 - Removed non-informative identifier columns  
 - Retained numeric features only; categorical features were tested but ultimately excluded due to stability issues within the preprocessing pipeline  
-- Train/Test split: **80 / 20**
+- Train/Test split in percentage: 80 / 20
 
 ### Feature Engineering & Leakage Control
 - No usage of the target variable during preprocessing  
 - No global statistics computed outside the training split  
 
 ### Feature Selection
-- **Permutation Importance** used for feature ranking  
-- Final model trained on the **Top-10 features** to balance performance and stability  
+- Permutation Importance used for feature ranking  
+- Final model trained on the Top-10 features to balance performance and stability  
 
 ### Model Development
 1. Baseline Linear Regression  
 2. Systematic model comparison  
 3. Feature ranking and selection  
-4. Hyperparameter tuning using **GridSearchCV (5-fold CV)**  
+4. Hyperparameter tuning using GridSearchCV (5-fold CV)  
 5. Final training and evaluation  
+
+---
+
+## 🚀 Model Usage & Practical Inference
+
+To enable a fast and convenient way to load and use the trained model, a dedicated notebook (`model_usage.ipynb`) was created, focusing on practical inference rather than model development.
+
+The notebook is structured into three parts:
+
+- **Model loading** – the serialized final model and the corresponding preprocessing pipeline are loaded to ensure consistent and reproducible predictions  
+- **Code-based inference** – users can manually specify the required feature values in code to obtain a transparent and controllable energy prediction for a single track  
+- **Interactive interface (experimental)** – an additional `ipywidgets`-based interface was implemented to explore a more user-friendly way of providing inputs and obtaining predictions  
+
+This notebook serves as a lightweight demonstration of how the final model can be quickly reused and tested independently from the training process.
+
 
 
 ---
@@ -120,17 +136,16 @@ homework_spotify-algorithmus/
 │
 ├── models/
 │ ├── model.pkl
-│ └── top_10_indices.pkl
+│ └── top_6_indices.pkl
 │
 ├── plots/
-│ ├── correlation_heatmap.png
-│ ├── permutation_importance.png
-│ └── model_comparison.png
+│ ├── ...
 │
 ├── exploration.ipynb
 ├── preprocessing.ipynb
 ├── modelling.ipynb
 ├── pipeline_gridsearch.ipynb
+├── train_final_model.ipynb
 ├── model_usage.ipynb
 │
 ├── requirements.txt
@@ -143,16 +158,18 @@ homework_spotify-algorithmus/
 ## 📄 File Explanation
 
 ### Folders
-- **data/** – raw dataset  
-- **models/** – trained model and selected feature indices  
-- **plots/** – all visual outputs used for analysis and reporting  
+- **data/** – raw dataset used for model development  
+- **models/** – serialized final model and selected feature indices  
+- **plots/** – generated figures from EDA, feature analysis, and model evaluation  
 
 ### Notebooks
-- **exploration.ipynb** – exploratory data analysis (EDA), correlation analysis, and initial feature testing  
-- **preprocessing.ipynb** – data cleaning, feature engineering, and construction of the preprocessing pipeline  
-- **modelling.ipynb** – systematic model comparison across multiple regression algorithms  
-- **pipeline_gridsearch.ipynb** – hyperparameter tuning, pipeline optimization, and final model selection  
-- **model_usage.ipynb** – final model training and example inference workflow  
+- **exploration.ipynb** – exploratory data analysis (EDA), correlation analysis, and initial feature engineering insights  
+- **preprocessing.ipynb** – data cleaning, and construction of the preprocessing pipeline  
+- **modelling.ipynb** – systematic comparison of multiple regression models  
+- **pipeline_gridsearch.ipynb** – hyperparameter tuning and pipeline optimization using grid search (❗️runtime approx. 25 minutes due to cross-validation)
+
+- **train_final_model.ipynb** – re-training of the final model training  
+- **model_usage.ipynb** – model loading, performance overview, and interactive inference interface  
 
 
 ---
@@ -170,7 +187,6 @@ homework_spotify-algorithmus/
 
 ## ⚠️ Disclaimer
 
-Some minor code artifacts and unused components remain in the repository.  
-These are partly the result of iterative experimentation during model development and partly due to the fact that **collaborative development via GitHub was a new learning experience for the team**. As the project progressed, the available time towards the end became limited, and the primary focus was placed on ensuring methodological correctness, reproducibility, and a clean final model rather than cosmetic code refactoring.
+Some minor code artifacts and unused components remain due to iterative experimentation, limited time towards the end of the project, and the fact that collaborative development via GitHub was a new learning experience for the team. The focus was therefore placed on methodological correctness, reproducibility, and a clean final model rather than cosmetic refactoring; all results and conclusions remain fully reproducible and unaffected by these artifacts.
 
-All core results, evaluations, and conclusions presented in this project are fully reproducible and unaffected by these artifacts.
+AI-based tools were used as supportive aids for brainstorming and coding, while all modeling decisions, interpretations, and final results were developed and validated by the team.
