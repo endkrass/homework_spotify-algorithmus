@@ -37,3 +37,6 @@ Basemodel/**
 
 # Data (if too large)
 # data/*.csv
+
+# Zip files
+*.zip

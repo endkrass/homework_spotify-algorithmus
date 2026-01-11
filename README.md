@@ -1,6 +1,6 @@
 # 🎵 Spotify Energy Prediction  
 ## Predictive Analytics – Group Assignment  
-**Authors:** Thomas Endrass · Johannes Lehner · Lukas Mayr
+**Authors:** Thomas Endrass · Johannes Lener · Lukas Mayr
 
 ---
 
@@ -15,9 +15,12 @@ Our goal was to significantly outperform this baseline using a clean, reproducib
 ### Final Result
 
 - **Model:** Random Forest Regressor  
-- **Parameters:**  max_depth - None, max_features - sqrt, min_samples_leaf - 1, min_samples_split - 2, n_estimators - 600
-- **Performance:** **R² = 0.78**  
-- **Improvement over baseline:** **~2.5× higher**
+- **Parameters:**  `max_depth` 10, `max_features` sqrt, `min_samples_leaf` 1, `min_samples_split` 2, `n_estimators` 200
+- **Performance:** R² = 0.71  
+- **Improvement over baseline:** ~2.3× higher
+
+After the grid search, a slightly better-performing model configuration (≈ +0.1 R²) was identified, but it resulted in a serialized model size of approximately 1.3 GB, exceeding the 100 MB file size limit of the university submission platform.  
+Therefore, a more compact configuration with `n_estimators = 200` and `max_depth = 10` was selected, keeping the model within the submission constraints while retaining nearly the same predictive performance.
 
 ---
 
@@ -39,7 +42,7 @@ Exploratory analysis and permutation importance revealed that **loudness** is by
 
 ### 2. Interaction Features Capture Perceptual Effects
 
-As an initial proof of concept, we trained a simple model using only **loudness** and **acousticness**, which achieved an **R² of approximately 0.60** without hyperparameter tuning. To avoid relying exclusively on one or two dominant features, we tried to engineer additional features to capture combined perceptual effects.
+As an initial proof of concept, we trained a simple model using only loudness and acousticness, which achieved an R² of approximately 0.60 without hyperparameter tuning. To avoid relying exclusively on one or two dominant features, we tried to engineer additional features to capture combined perceptual effects.
 
 The evaluated features were derived from correlation analysis during exploration and basic musical intuition:
 
@@ -48,7 +51,7 @@ The evaluated features were derived from correlation analysis during exploration
  `loudness_danceability`  
  `tempo_valence`  
 
-- While **loudness** remained the dominant predictor, some interaction features appeared among the **Top-10**, which we saw as an encouraging result suggesting a limited but complementary contribution.
+- While loudness remained the dominant predictor, some interaction features appeared among the **Top-10**, which we saw as an encouraging result suggesting a limited but complementary contribution.
 
 - Several early feature-engineering attempts resulted in unrealistically high R² values (up to ~0.98), which led us to identify **target leakage** sneaking repeatly in amidst the hustle. All retained interaction features were therefore engineered strictly on **X**.
 
@@ -83,7 +86,7 @@ Six regression models were evaluated under identical conditions:
 </table>
 </p>
 
-Tree-based ensemble models clearly outperform linear approaches, confirming **non-linear relationships** between audio features and perceived energy.
+Tree-based ensemble models clearly outperform linear approaches, confirming non-linear relationships between audio features and perceived energy.
 
 ---
 
@@ -113,7 +116,7 @@ Tree-based ensemble models clearly outperform linear approaches, confirming **no
 
 ## 🚀 Model Usage & Practical Inference
 
-To enable a fast and convenient way to load and use the trained model, a dedicated notebook (`model_usage.ipynb`) was created, focusing on practical inference rather than model development.
+To enable a fast and convenient way to load and use the trained model, a dedicated notebook (`6_model_usage.ipynb`) was created, focusing on practical inference rather than model development.
 
 The notebook is structured into three parts:
 
@@ -141,12 +144,12 @@ homework_spotify-algorithmus/
 ├── plots/
 │ ├── ...
 │
-├── exploration.ipynb
-├── preprocessing.ipynb
-├── modelling.ipynb
-├── pipeline_gridsearch.ipynb
-├── train_final_model.ipynb
-├── model_usage.ipynb
+├── 1_exploration.ipynb
+├── 2_preprocessing.ipynb
+├── 3_modelling.ipynb
+├── 4_pipeline_gridsearch.ipynb
+├── 5_train_final_model.ipynb
+├── 6_model_usage.ipynb
 │
 ├── requirements.txt
 │
@@ -163,13 +166,13 @@ homework_spotify-algorithmus/
 - **plots/** – generated figures from EDA, feature analysis, and model evaluation  
 
 ### Notebooks
-- **exploration.ipynb** – exploratory data analysis (EDA), correlation analysis, and initial feature engineering insights  
-- **preprocessing.ipynb** – data cleaning, and construction of the preprocessing pipeline  
-- **modelling.ipynb** – systematic comparison of multiple regression models  
-- **pipeline_gridsearch.ipynb** – hyperparameter tuning and pipeline optimization using grid search (❗️runtime approx. 25 minutes due to cross-validation)
+- **1_exploration.ipynb** – exploratory data analysis (EDA), correlation analysis, and initial feature engineering insights  
+- **2_preprocessing.ipynb** – data cleaning, and construction of the preprocessing pipeline  
+- **3_modelling.ipynb** – systematic comparison of multiple regression models  
+- **4_pipeline_gridsearch.ipynb** – hyperparameter tuning and pipeline optimization using grid search (❗️runtime approx. 25 minutes due to cross-validation)
 
-- **train_final_model.ipynb** – re-training of the final model training  
-- **model_usage.ipynb** – model loading, performance overview, and interactive inference interface  
+- **5_train_final_model.ipynb** – re-training of the final model training  
+- **6_model_usage.ipynb** – model loading, performance overview, and interactive inference interface  
 
 
 ---
@@ -190,3 +193,10 @@ homework_spotify-algorithmus/
 Some minor code artifacts and unused components remain due to iterative experimentation, limited time towards the end of the project, and the fact that collaborative development via GitHub was a new learning experience for the team. The focus was therefore placed on methodological correctness, reproducibility, and a clean final model rather than cosmetic refactoring; all results and conclusions remain fully reproducible and unaffected by these artifacts.
 
 AI-based tools were used as supportive aids for brainstorming and coding, while all modeling decisions, interpretations, and final results were developed and validated by the team.
+
+---
+
+🍒 Project Repository
+
+This project is also available on GitHub.  
+https://github.com/endkrass/homework_spotify-algorithmus
